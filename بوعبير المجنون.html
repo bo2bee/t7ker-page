@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacked by Azzam</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: monospace;
+      color: red;
+    }
+    #bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+    .weird-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 90px;
+      font-weight: bold;
+      color: red;
+      display: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding-top: 20%;
+      filter: blur(1px);
+    }
+    .final-message {
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      display: none;
+    }
+    .glitch {
+      animation: glitch 0.1s infinite;
+    }
+    @keyframes glitch {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(180deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    #blackout {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: black;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 10;
+      transition: opacity 2s;
+    }
+  </style>
+</head>
+<body>
+  <div id="bg"></div>
+  <div class="weird-text" id="weirdText">#@$!&*^%▉▉▉▉▉▉▉▉▉▉▉⧓▓▒░⌁⧗▤≋</div>
+  <div class="final-message" id="finalMsg">Azzam loves you... and because he loves you, he hacked you 😈</div>
+  <div id="blackout"></div>
+
+  <script>
+    const colors = ["red", "green", "blue", "yellow", "purple", "orange", "cyan", "lime", "white", "magenta", "pink", "gray"];
+    let bg = document.getElementById("bg");
+    let weirdText = document.getElementById("weirdText");
+    let finalMsg = document.getElementById("finalMsg");
+    let blackout = document.getElementById("blackout");
+
+    let colorInterval = setInterval(() => {
+      let color = colors[Math.floor(Math.random() * colors.length)];
+      bg.style.backgroundColor = color;
+    }, 100);
+
+    setTimeout(() => {
+      weirdText.style.display = "block";
+    }, 5000);
+
+    setTimeout(() => {
+      document.body.classList.add("glitch");
+    }, 7000);
+
+    setTimeout(() => {
+      finalMsg.style.display = "block";
+    }, 9000);
+
+    setTimeout(() => {
+      blackout.style.opacity = 1;
+    }, 11000);
+  </script>
+</body>
+</html>
