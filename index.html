@@ -1,129 +1,159 @@
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hacked</title>
+  <title>Japanese Hacker</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
-      height: 100%;
       overflow: hidden;
-      font-family: monospace;
       background: black;
-    }
-    #colorFlash {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    .square {
-      position: absolute;
-      background-color: rgba(255,0,0,0.1);
-      color: red;
-      font-size: 30px;
-      font-weight: bold;
-      border: 1px solid red;
-      padding: 10px;
-      animation: float 5s linear forwards;
-    }
-    @keyframes float {
-      from { transform: translateY(100vh); opacity: 0; }
-      to { transform: translateY(-10vh); opacity: 1; }
-    }
-    #finalMessage {
-      position: absolute;
-      top: 20%;
-      width: 100%;
-      text-align: center;
-      font-size: 40px;
+      font-family: monospace;
       color: white;
+    }
+
+    #flashing {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
+
+    #number {
+      position: absolute;
+      top: 30%;
+      width: 100%;
+      font-size: 120px;
+      color: red;
+      text-align: center;
+      display: none;
+      animation: spin 5s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    #warning {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      font-size: 32px;
+      color: yellow;
+      text-align: center;
       display: none;
     }
-    #blackout {
+
+    #errorText {
+      display: none;
+      color: red;
+      font-size: 40px;
+      text-align: center;
+      margin-top: 20%;
+    }
+
+    #repeater {
+      display: none;
+      color: white;
+      font-size: 24px;
       position: absolute;
-      background: black;
       width: 100%;
       height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      opacity: 0;
-      transition: opacity 3s;
+      overflow: auto;
+      padding: 20px;
     }
-    .glitch {
+
+    #glitch {
+      display: none;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, black, white 10px);
       animation: glitchAnim 0.2s infinite;
+      z-index: 5;
     }
+
     @keyframes glitchAnim {
       0% { filter: hue-rotate(0deg); }
-      50% { filter: hue-rotate(180deg); }
-      100% { filter: hue-rotate(360deg); }
+      50% { filter: hue-rotate(90deg); }
+      100% { filter: hue-rotate(180deg); }
+    }
+
+    .frozen {
+      pointer-events: none !important;
+      user-select: none !important;
     }
   </style>
 </head>
-<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
-  <div id="colorFlash"></div>
-  <div id="finalMessage"></div>
-  <div id="blackout"></div>
+<body>
+
+  <div id="flashing"></div>
+  <div id="number">7739472847</div>
+  <div id="warning">⚠️ A serious error has occurred ⚠️</div>
+  <div id="errorText">Japanese hacker error!!!</div>
+  <div id="repeater"></div>
+  <div id="glitch"></div>
 
   <script>
-    const colors = ["red","green","blue","yellow","purple","cyan","magenta","lime","white","orange","pink"];
-    const flash = document.getElementById("colorFlash");
-    const final = document.getElementById("finalMessage");
-    const blackout = document.getElementById("blackout");
+    const flashing = document.getElementById('flashing');
+    const number = document.getElementById('number');
+    const warning = document.getElementById('warning');
+    const errorText = document.getElementById('errorText');
+    const repeater = document.getElementById('repeater');
+    const glitch = document.getElementById('glitch');
 
-    // تغيير الألوان بشكل سريع
-    setInterval(() => {
-      flash.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    const colors = ["red", "blue", "green", "yellow", "purple", "cyan", "magenta", "white", "orange", "lime"];
+
+    // Flashing colors for 10 seconds
+    let i = 0;
+    let flashInterval = setInterval(() => {
+      flashing.style.backgroundColor = colors[i++ % colors.length];
     }, 100);
 
-    // تشويش بعد 5 ثواني
     setTimeout(() => {
-      document.body.classList.add("glitch");
-    }, 5000);
-
-    // مربعات يابانية تتحرك بعد 7 ثواني
-    setTimeout(() => {
-      for (let i = 0; i < 50; i++) {
-        let box = document.createElement("div");
-        box.className = "square";
-        box.style.left = Math.random() * 100 + "vw";
-        box.style.top = Math.random() * 100 + "vh";
-        box.innerText = "ハッキングされたぞ、この野郎。";
-        document.body.appendChild(box);
-      }
-    }, 7000);
-
-    // كتابة الرسالة حرفًا حرفًا
-    const msg = "アッザム・アル・オタイビはあなたをとても愛しており、あなたをハッキングしたのです";
-    setTimeout(() => {
-      final.style.display = "block";
-      let index = 0;
-      let interval = setInterval(() => {
-        if (index < msg.length) {
-          final.innerText += msg[index++];
-        } else {
-          clearInterval(interval);
-        }
-      }, 200);
+      clearInterval(flashInterval);
+      flashing.style.display = "none";
+      number.style.display = "block";
     }, 10000);
 
-    // تغطية الشاشة (كأنها تقفلت)
+    // Show warning after number
     setTimeout(() => {
-      blackout.style.opacity = 1;
-    }, 14000);
+      warning.style.display = "block";
+    }, 13000);
 
-    // محاولة تجميد الصفحة (تعليق الأحداث)
-    window.addEventListener('keydown', e => e.preventDefault(), true);
-    window.addEventListener('click', e => e.preventDefault(), true);
-    window.addEventListener('contextmenu', e => e.preventDefault(), true);
-    window.addEventListener('mousedown', e => e.preventDefault(), true);
-    document.body.style.pointerEvents = "none";
+    // Show error text and black screen
+    setTimeout(() => {
+      document.body.style.background = "black";
+      number.style.display = "none";
+      warning.style.display = "none";
+      errorText.style.display = "block";
+    }, 16000);
+
+    // Show repeated Japanese text
+    setTimeout(() => {
+      errorText.style.display = "none";
+      repeater.style.display = "block";
+      let spam = "日本のハッカー 日本のハッカー ";
+      repeater.innerText = spam.repeat(50);
+    }, 19000);
+
+    // Glitch effect
+    setTimeout(() => {
+      glitch.style.display = "block";
+    }, 22000);
+
+    // Freeze screen
+    setTimeout(() => {
+      document.body.classList.add("frozen");
+      window.addEventListener("keydown", e => e.preventDefault(), true);
+      window.addEventListener("click", e => e.preventDefault(), true);
+      window.addEventListener("contextmenu", e => e.preventDefault(), true);
+      window.addEventListener("mousedown", e => e.preventDefault(), true);
+    }, 24000);
   </script>
 </body>
 </html>
