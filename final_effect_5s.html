@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake Virus Effect</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: monospace;
+    }
+
+    #flashing {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10;
+      animation: flashColors 0.1s infinite;
+    }
+
+    @keyframes flashColors {
+      0%   { background: red; }
+      25%  { background: blue; }
+      50%  { background: green; }
+      75%  { background: yellow; }
+      100% { background: magenta; }
+    }
+
+    .wave-effect {
+      width: 100vw;
+      height: 100vh;
+      background: repeating-linear-gradient(
+        90deg,
+        red,
+        red 10px,
+        blue 10px,
+        blue 20px
+      );
+      animation: wave 3s forwards;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+    }
+
+    @keyframes wave {
+      0% {
+        background-size: 100% 100%;
+      }
+      100% {
+        background-size: 400% 100%;
+        filter: brightness(2);
+      }
+    }
+
+    .glitch-phase {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: green;
+      background-image: repeating-linear-gradient(0deg, #00ff00, #00ff00 2px, #003300 2px, #003300 4px);
+      animation: flicker 0.05s infinite;
+      z-index: 8;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .crt-glitch {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      animation: crtEffect 2s forwards;
+      z-index: 7;
+    }
+
+    @keyframes crtEffect {
+      0% { background: black; }
+      100% {
+        background-image: repeating-linear-gradient(
+          0deg,
+          white,
+          white 2px,
+          black 2px,
+          black 4px
+        );
+      }
+    }
+
+    .final-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 11;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .square {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      background: red;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      animation: moveSquares 3s infinite;
+    }
+
+    @keyframes moveSquares {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(10px, 10px); }
+      50% { transform: translate(-10px, 10px); }
+      75% { transform: translate(10px, -10px); }
+      100% { transform: translate(0, 0); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="flashing"></div>
+<div class="wave-effect" style="display: none;"></div>
+<div class="glitch-phase" style="display: none;"></div>
+<div class="crt-glitch" style="display: none;"></div>
+<div class="final-message" style="display: none;" id="squares">
+</div>
+
+<script>
+  setTimeout(() => {
+    document.getElementById('flashing').style.display = 'none';
+    document.querySelector('.wave-effect').style.display = 'block';
+  }, 3000);
+
+  setTimeout(() => {
+    document.querySelector('.wave-effect').style.display = 'none';
+    document.querySelector('.glitch-phase').style.display = 'block';
+  }, 6000);
+
+  setTimeout(() => {
+    document.querySelector('.glitch-phase').style.display = 'none';
+    document.querySelector('.crt-glitch').style.display = 'block';
+  }, 9000);
+
+  setTimeout(() => {
+    document.querySelector('.crt-glitch').style.display = 'none';
+    document.getElementById('squares').style.display = 'flex';
+    for (let i = 0; i < 100; i++) {
+      const sq = document.createElement('div');
+      sq.className = 'square';
+      sq.textContent = 'Throw your phone or sell it';
+      document.getElementById('squares').appendChild(sq);
+    }
+  }, 12000);
+</script>
+
+</body>
+</html>
