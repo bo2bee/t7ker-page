@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacked</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: monospace;
+      background: black;
+    }
+    #colorFlash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .square {
+      position: absolute;
+      background-color: rgba(255,0,0,0.1);
+      color: red;
+      font-size: 30px;
+      font-weight: bold;
+      border: 1px solid red;
+      padding: 10px;
+      animation: float 5s linear forwards;
+    }
+    @keyframes float {
+      from { transform: translateY(100vh); opacity: 0; }
+      to { transform: translateY(-10vh); opacity: 1; }
+    }
+    #finalMessage {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      font-size: 40px;
+      color: white;
+      display: none;
+    }
+    #blackout {
+      position: absolute;
+      background: black;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 3s;
+    }
+    .glitch {
+      animation: glitchAnim 0.2s infinite;
+    }
+    @keyframes glitchAnim {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(180deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+  <div id="colorFlash"></div>
+  <div id="finalMessage"></div>
+  <div id="blackout"></div>
+
+  <script>
+    const colors = ["red","green","blue","yellow","purple","cyan","magenta","lime","white","orange","pink"];
+    const flash = document.getElementById("colorFlash");
+    const final = document.getElementById("finalMessage");
+    const blackout = document.getElementById("blackout");
+
+    // تغيير الألوان بشكل سريع
+    setInterval(() => {
+      flash.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    }, 100);
+
+    // تشويش بعد 5 ثواني
+    setTimeout(() => {
+      document.body.classList.add("glitch");
+    }, 5000);
+
+    // مربعات يابانية تتحرك بعد 7 ثواني
+    setTimeout(() => {
+      for (let i = 0; i < 50; i++) {
+        let box = document.createElement("div");
+        box.className = "square";
+        box.style.left = Math.random() * 100 + "vw";
+        box.style.top = Math.random() * 100 + "vh";
+        box.innerText = "ハッキングされたぞ、この野郎。";
+        document.body.appendChild(box);
+      }
+    }, 7000);
+
+    // كتابة الرسالة حرفًا حرفًا
+    const msg = "アッザム・アル・オタイビはあなたをとても愛しており、あなたをハッキングしたのです";
+    setTimeout(() => {
+      final.style.display = "block";
+      let index = 0;
+      let interval = setInterval(() => {
+        if (index < msg.length) {
+          final.innerText += msg[index++];
+        } else {
+          clearInterval(interval);
+        }
+      }, 200);
+    }, 10000);
+
+    // تغطية الشاشة (كأنها تقفلت)
+    setTimeout(() => {
+      blackout.style.opacity = 1;
+    }, 14000);
+
+    // محاولة تجميد الصفحة (تعليق الأحداث)
+    window.addEventListener('keydown', e => e.preventDefault(), true);
+    window.addEventListener('click', e => e.preventDefault(), true);
+    window.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.addEventListener('mousedown', e => e.preventDefault(), true);
+    document.body.style.pointerEvents = "none";
+  </script>
+</body>
+</html>
