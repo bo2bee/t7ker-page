@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacked by Azzam</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    #container {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: background 0.3s;
+    }
+    .hidden { display: none; }
+    .huge-text {
+      font-size: 200px;
+      color: red;
+    }
+    .warning {
+      color: white;
+      background-color: black;
+      padding: 20px;
+    }
+    .final-message {
+      color: white;
+      font-size: 28px;
+      margin-top: 20px;
+    }
+    img {
+      width: 300px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="step1">Loading...</div>
+    <div id="step2" class="hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Kali_Linux_2.0_wordmark.svg" alt="Kali Linux"></div>
+    <div id="step3" class="hidden">Deleting your files</div>
+    <div id="step4" class="hidden huge-text">███████</div>
+    <div id="step5" class="hidden warning">
+      An error has occurred while updating the device software.<br>
+      Use the Emergency function in the PC software.
+    </div>
+    <div id="step6" class="hidden final-message">
+      Azzam loves you and hacked you because of that
+    </div>
+  </div>
+
+  <script>
+    const colors = ["red", "green", "blue", "yellow", "purple", "orange", "cyan", "white"];
+    let step = 0;
+    const container = document.getElementById("container");
+
+    function nextStep() {
+      if (step < colors.length) {
+        container.style.backgroundColor = colors[step];
+        step++;
+        setTimeout(nextStep, 300);
+      } else {
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+        setTimeout(() => {
+          document.getElementById("step2").classList.add("hidden");
+          document.getElementById("step3").classList.remove("hidden");
+          setTimeout(() => {
+            document.getElementById("step3").classList.add("hidden");
+            document.getElementById("step4").classList.remove("hidden");
+            setTimeout(() => {
+              document.getElementById("step4").classList.add("hidden");
+              document.getElementById("step5").classList.remove("hidden");
+              setTimeout(() => {
+                document.getElementById("step5").classList.add("hidden");
+                document.getElementById("step6").classList.remove("hidden");
+              }, 3000);
+            }, 1500);
+          }, 2000);
+        }, 1500);
+      }
+    }
+
+    window.onload = nextStep;
+  </script>
+</body>
+</html>
