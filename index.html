@@ -23,18 +23,14 @@
 
     #number {
       position: absolute;
-      top: 30%;
+      top: 0;
+      left: 0;
       width: 100%;
-      font-size: 120px;
+      font-size: 300px;
       color: red;
       text-align: center;
       display: none;
-      animation: spin 5s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      word-break: break-word;
     }
 
     #warning {
@@ -49,8 +45,8 @@
 
     #errorText {
       display: none;
-      color: red;
-      font-size: 40px;
+      color: white;
+      font-size: 50px;
       text-align: center;
       margin-top: 20%;
     }
@@ -58,12 +54,13 @@
     #repeater {
       display: none;
       color: white;
-      font-size: 24px;
+      font-size: 30px;
       position: absolute;
       width: 100%;
       height: 100%;
       overflow: auto;
       padding: 20px;
+      background: red;
     }
 
     #glitch {
@@ -72,8 +69,8 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(45deg, black, white 10px);
-      animation: glitchAnim 0.2s infinite;
+      background: repeating-linear-gradient(90deg, black, white 20px);
+      animation: glitchAnim 0.1s infinite;
       z-index: 5;
     }
 
@@ -92,7 +89,7 @@
 <body>
 
   <div id="flashing"></div>
-  <div id="number">7739472847</div>
+  <div id="number"></div>
   <div id="warning">⚠️ A serious error has occurred ⚠️</div>
   <div id="errorText">Japanese hacker error!!!</div>
   <div id="repeater"></div>
@@ -107,46 +104,47 @@
     const glitch = document.getElementById('glitch');
 
     const colors = ["red", "blue", "green", "yellow", "purple", "cyan", "magenta", "white", "orange", "lime"];
-
-    // Flashing colors for 10 seconds
     let i = 0;
     let flashInterval = setInterval(() => {
       flashing.style.backgroundColor = colors[i++ % colors.length];
-    }, 100);
+    }, 100); // ترمش بسرعة 0.1 ثانية
 
+    // بعد 10 ثواني - أوقف الألوان وابدأ الرقم
     setTimeout(() => {
       clearInterval(flashInterval);
       flashing.style.display = "none";
+      let numSpam = "34281948373 ";
+      number.innerText = numSpam.repeat(500);
       number.style.display = "block";
     }, 10000);
 
-    // Show warning after number
+    // بعد 13 ثانية - التحذير
     setTimeout(() => {
       warning.style.display = "block";
     }, 13000);
 
-    // Show error text and black screen
+    // بعد 16 ثانية - شاشة حمراء مع خطأ
     setTimeout(() => {
-      document.body.style.background = "black";
+      document.body.style.background = "red";
       number.style.display = "none";
       warning.style.display = "none";
       errorText.style.display = "block";
     }, 16000);
 
-    // Show repeated Japanese text
+    // بعد 19 ثانية - نص ياباني متكرر
     setTimeout(() => {
       errorText.style.display = "none";
       repeater.style.display = "block";
       let spam = "日本のハッカー 日本のハッカー ";
-      repeater.innerText = spam.repeat(50);
+      repeater.innerText = spam.repeat(500);
     }, 19000);
 
-    // Glitch effect
+    // بعد 22 ثانية - تشويش الشاشة
     setTimeout(() => {
       glitch.style.display = "block";
     }, 22000);
 
-    // Freeze screen
+    // بعد 24 ثانية - تجميد كامل
     setTimeout(() => {
       document.body.classList.add("frozen");
       window.addEventListener("keydown", e => e.preventDefault(), true);
