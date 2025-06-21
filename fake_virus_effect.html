@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>System Failure</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      font-family: monospace;
+      color: red;
+    }
+
+    .flash {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      animation: flashColors 0.1s infinite;
+      z-index: -1;
+    }
+
+    @keyframes flashColors {
+      0% { background: red; }
+      20% { background: lime; }
+      40% { background: blue; }
+      60% { background: yellow; }
+      80% { background: cyan; }
+      100% { background: magenta; }
+    }
+
+    .square {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: white;
+      animation: moveSquares 2s linear infinite;
+    }
+
+    @keyframes moveSquares {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+    .message {
+      position: fixed;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      text-align: center;
+      color: white;
+      animation: fadeIn 2s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .glitch {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        #000,
+        #000 1px,
+        #111 1px,
+        #111 2px
+      );
+      animation: glitchAnim 0.2s infinite;
+      z-index: 5;
+      opacity: 0.8;
+    }
+
+    @keyframes glitchAnim {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-5px, 5px); }
+      50% { transform: translate(5px, -5px); }
+      75% { transform: translate(-3px, 3px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .skull {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      color: red;
+      text-align: center;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="flash"></div>
+  <div class="glitch"></div>
+  <div id="container"></div>
+  <div id="msg" class="message"></div>
+  <div id="skull" class="skull">💀<br>SELL OR THROW YOUR PHONE</div>
+
+  <script>
+    // Create flooding squares
+    for (let i = 0; i < 200; i++) {
+      const square = document.createElement('div');
+      square.classList.add('square');
+      square.style.left = Math.random() * window.innerWidth + 'px';
+      square.style.top = Math.random() * window.innerHeight + 'px';
+      square.style.background = 'rgba(' + 
+        Math.floor(Math.random()*255) + ',' +
+        Math.floor(Math.random()*255) + ',' +
+        Math.floor(Math.random()*255) + ',0.7)';
+      document.body.appendChild(square);
+    }
+
+    // Timed Events
+    setTimeout(() => {
+      document.getElementById("msg").innerText = "⚠️ SYSTEM CORRUPTED!";
+    }, 10000);
+
+    setTimeout(() => {
+      document.getElementById("skull").style.display = "block";
+    }, 15000);
+  </script>
+</body>
+</html>
