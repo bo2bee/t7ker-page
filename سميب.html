@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Japanese Hacker</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: monospace;
+      color: white;
+    }
+
+    #flashing {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
+
+    #number {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      font-size: 300px;
+      color: red;
+      text-align: center;
+      display: none;
+      word-break: break-word;
+    }
+
+    #warning {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      font-size: 32px;
+      color: yellow;
+      text-align: center;
+      display: none;
+    }
+
+    #errorText {
+      display: none;
+      color: white;
+      font-size: 50px;
+      text-align: center;
+      margin-top: 20%;
+    }
+
+    #repeater {
+      display: none;
+      color: white;
+      font-size: 30px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      padding: 20px;
+      background: red;
+    }
+
+    #glitch {
+      display: none;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(90deg, black, white 20px);
+      animation: glitchAnim 0.1s infinite;
+      z-index: 5;
+    }
+
+    @keyframes glitchAnim {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(90deg); }
+      100% { filter: hue-rotate(180deg); }
+    }
+
+    .frozen {
+      pointer-events: none !important;
+      user-select: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="flashing"></div>
+  <div id="number"></div>
+  <div id="warning">⚠️ A serious error has occurred ⚠️</div>
+  <div id="errorText">Japanese hacker error!!!</div>
+  <div id="repeater"></div>
+  <div id="glitch"></div>
+
+  <script>
+    const flashing = document.getElementById('flashing');
+    const number = document.getElementById('number');
+    const warning = document.getElementById('warning');
+    const errorText = document.getElementById('errorText');
+    const repeater = document.getElementById('repeater');
+    const glitch = document.getElementById('glitch');
+
+    const colors = ["red", "blue", "green", "yellow", "purple", "cyan", "magenta", "white", "orange", "lime"];
+    let i = 0;
+    let flashInterval = setInterval(() => {
+      flashing.style.backgroundColor = colors[i++ % colors.length];
+    }, 100); // ترمش بسرعة 0.1 ثانية
+
+    // بعد 10 ثواني - أوقف الألوان وابدأ الرقم
+    setTimeout(() => {
+      clearInterval(flashInterval);
+      flashing.style.display = "none";
+      let numSpam = "34281948373 ";
+      number.innerText = numSpam.repeat(500);
+      number.style.display = "block";
+    }, 10000);
+
+    // بعد 13 ثانية - التحذير
+    setTimeout(() => {
+      warning.style.display = "block";
+    }, 13000);
+
+    // بعد 16 ثانية - شاشة حمراء مع خطأ
+    setTimeout(() => {
+      document.body.style.background = "red";
+      number.style.display = "none";
+      warning.style.display = "none";
+      errorText.style.display = "block";
+    }, 16000);
+
+    // بعد 19 ثانية - نص ياباني متكرر
+    setTimeout(() => {
+      errorText.style.display = "none";
+      repeater.style.display = "block";
+      let spam = "日本のハッカー 日本のハッカー ";
+      repeater.innerText = spam.repeat(500);
+    }, 19000);
+
+    // بعد 22 ثانية - تشويش الشاشة
+    setTimeout(() => {
+      glitch.style.display = "block";
+    }, 22000);
+
+    // بعد 24 ثانية - تجميد كامل
+    setTimeout(() => {
+      document.body.classList.add("frozen");
+      window.addEventListener("keydown", e => e.preventDefault(), true);
+      window.addEventListener("click", e => e.preventDefault(), true);
+      window.addEventListener("contextmenu", e => e.preventDefault(), true);
+      window.addEventListener("mousedown", e => e.preventDefault(), true);
+    }, 24000);
+  </script>
+</body>
+</html>
